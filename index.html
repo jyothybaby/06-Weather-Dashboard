@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Why does the `<link>` to `style.css` have to come last? -->
+  <!-- Style.css are made by us. if we put this up then the link will update my style. because it is going from top to bottom -->
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <title>Weather Dashboard</title>
+</head>
+
+<body>
+  <header class="p-5 text-center text-white bg-primary">
+    <h1>Weather Dashboard</h1>
+  </header>
+  <main class="flex-row justify-space-between">
+    <div class="col-12 col-md-2">
+
+      <div class="card">
+        <h3 class="card-header text-uppercase">Search By City</h3>
+        <form id="city-form" class="card-body">
+          <label class="form-label" for="city">City</label>
+          <input name="city-name" id = "city" type="text" autofocus="true" class="form-input" />
+          <button type="submit" class="btn">search</button>
+          <button type="submit"  class="btn" id="clear-city">Remove Cities</button>
+        </form>
+        <div id="formMsg"></div>
+      </div>
+      <div class="card">
+        <div id="city-buttons" class="card-body">
+          <!-- Dynamically created buttons should go here -->
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-10">
+      <h2 class="display-location"><span id="repo-search-term"></span></h2>
+      <!-- TODO: Why is this `<div>` empty? What goes in here? -->
+      <!-- it is dynamically creating the list for the response. -->
+      <div id="repos-container" class="list-group"></div>
+    </div>
+
+    <!-- <div class="col-12 col-md-2" id="day1">
+      <div></div>  
+      <div></div>  
+      <div></div>
+      <div></div>
+      <div></div>
+    </div> -->
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</body>
