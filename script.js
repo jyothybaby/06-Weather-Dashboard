@@ -1,3 +1,4 @@
+var displayLocationEl = document.querySelector(".display-location");
 var APIKey = "363823c2e92dad51019d30b82e6c13d8";
 var citiesArray = [];
 function initializeCities() {
@@ -71,6 +72,9 @@ function getWeatherInfo(cityEl) {
     })
     .then(function (data){
         console.log(data);
+        var day = moment().format("MMM Do YYYY"); 
+        displayLocationEl.textContent = data.name + "- "+ day;
+        console.log("displayLocationEl");
     })
 }
 

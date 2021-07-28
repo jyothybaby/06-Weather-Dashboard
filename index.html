@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Why does the `<link>` to `style.css` have to come last? -->
   <!-- Style.css are made by us. if we put this up then the link will update my style. because it is going from top to bottom -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
@@ -40,10 +41,12 @@
 
 
     <div class="col-12 col-md-10">
-      <h2 class="display-location"><span id="repo-search-term"></span></h2>
-      <!-- TODO: Why is this `<div>` empty? What goes in here? -->
-      <!-- it is dynamically creating the list for the response. -->
-      <div id="repos-container" class="list-group">5 Day Forecast</div>
+      <h2 class="display-location"><span id="LocationInfo"></span></h2>
+      <div id= "temperature"></div><br><br>
+      <div id = "wind"></div><br><br>
+      <div id= "humidity"></div> <br><br>
+      <div id= "UVIndex"></div> <br><br>
+      
     </div>
 
     <div class="col-12 col-md-10" id="forcast-coniainer">
