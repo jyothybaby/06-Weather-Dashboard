@@ -1,3 +1,4 @@
+var APIKey = "363823c2e92dad51019d30b82e6c13d8";
 var citiesArray = [];
 function initializeCities() {
     var citiesLocal = JSON.parse(localStorage.getItem("citiesLocal"));
@@ -57,10 +58,26 @@ searchBtn.addEventListener("click", function (event) {
         citiesArray.push(cityEl);
         localStorage.setItem("citiesLocal", JSON.stringify(citiesArray));
         viewCities();
+        getWeatherInfo(cityEl);
     }
 
 })
 
+function getWeatherInfo(cityEl) {
+    var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
+    fetch(apiurl)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function (data){
+        console.log(data);
+    })
+}
+
 var removeCities = document.getElementById("clear-city");
 removeCities.addEventListener("click", clearCities)
 initializeCities()
+
+//key: 363823c2e92dad51019d30b82e6c13d8
+
+//api.openweathermap.org/data/2.5/weather?q={city name}&appid=APIKey;
