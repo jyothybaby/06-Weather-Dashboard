@@ -142,6 +142,16 @@ fetch(uvIndexUrl)
 .then(function(info){
     console.log(info);
     UVIndexEl .textContent = "UVIndex: "+ info.value;
+    if((info.value) <=2 ) {
+        //low
+        document.getElementById("UVIndex").className = " lowUVIndex";  
+    } else if ((info.value >2) && (info.value <=7) ){
+        // moderate
+        document.getElementById("UVIndex").className = " moderateUVIndex"; 
+    }else {
+        //danger
+        document.getElementById("UVIndex").className = " dangerUVIndex"; 
+    }
 
 })
         

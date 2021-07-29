@@ -194,6 +194,24 @@
     padding: 2.5%;
   }
   
+  #formMsg {
+    font-weight: bold;
+    color: red;
+  }
+
+  .lowUVIndex {
+    padding: 20px;
+    background-color: green;
+  }
+  .moderateUVIndex {
+    padding: 20px;
+    background-color: yellow;
+  }
+  .dangerUVIndex {
+    padding: 20px;
+    background-color: red;
+  }
+
   /* FORM */
   .form-label,
   .form-input,
