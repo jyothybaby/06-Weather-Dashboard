@@ -130,6 +130,9 @@
     max-width: 75%;
   }
   
+  /* #mainLocationInfo {
+    border: 1px solid black;
+  } */
   .app-title {
     font-size: 3rem;
     background-color: var(--primary);
