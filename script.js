@@ -3,6 +3,8 @@ var temperatureEl = document.querySelector("#temperature");
 var windEl = document.querySelector("#wind");
 var humidityEl = document.querySelector("#humidity");
 var UVIndexEl = document.querySelector("#UVIndex");
+var locationButtonEl = document.querySelector(".city-id");
+
 
 
 var APIKey = "363823c2e92dad51019d30b82e6c13d8";
@@ -40,11 +42,17 @@ function displayCities() {
        for (var i = 0; i < citiesArray.length; i++) {
         var city = citiesArray[i];
         var cityButton = document.createElement("button");
-        cityButton.className = "city-id"
+        cityButton.className = "city-id";
+        //cityButton.id
         cityButton.textContent = city;
         cityButtonList.appendChild(cityButton);
+        cityButton.onclick = cityButtonClickHandler;
     }
 }
+
+// function cityButtonDivClicked(event){
+//     alert(event.target.innerHTML);
+// }
 
 
 var formMsg = document.querySelector("#formMsg");
@@ -52,6 +60,12 @@ var formMsg = document.querySelector("#formMsg");
 function displayMessage(type, message) {
     formMsg.textContent = message;
     formMsg.setAttribute("class", type);
+}
+
+function cityButtonClickHandler(event) {
+    var cityEl= event.target.innerHTML;
+    console.log(cityEl);
+    getWeatherInfo(cityEl);
 }
 
 var searchBtn = document.querySelector(".btn");
@@ -79,6 +93,9 @@ function getWeatherInfo(cityEl) {
     })
     .then(function (data){
         console.log(data);
+
+        document.getElementById("mainLocationInfo").className = " mainLocation";  
+
         var day = moment().format("MMM Do YYYY"); 
         displayLocationEl.textContent = data.name + "- "+ day  ;
         //var iconCode = data.weather[0].icon;
@@ -117,7 +134,10 @@ fetch(uvIndexUrl)
 
 var removeCities = document.getElementById("clear-city");
 removeCities.addEventListener("click", clearCities)
+
 initializeCities()
+
+
 
 //key: 363823c2e92dad51019d30b82e6c13d8
 
