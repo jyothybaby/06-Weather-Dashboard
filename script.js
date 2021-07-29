@@ -4,6 +4,7 @@ var windEl = document.querySelector("#wind");
 var humidityEl = document.querySelector("#humidity");
 var UVIndexEl = document.querySelector("#UVIndex");
 var locationButtonEl = document.querySelector(".city-id");
+var redirectUrl = '404.html';
 
 
 
@@ -76,6 +77,14 @@ searchBtn.addEventListener("click", function (event) {
         displayMessage("error", "Please enter a City !!");
         return;
     } else {
+        for(var i=0;i< citiesArray.length;i++){
+            if(citiesArray[i]===cityEl) {
+                displayMessage("error", "The City is already in the List!!!");
+                return;
+            } else {
+                displayMessage("sucess", "");
+            }
+        }
         citiesArray.push(cityEl);
         localStorage.setItem("citiesLocal", JSON.stringify(citiesArray));
         viewCities();
@@ -89,7 +98,11 @@ function getWeatherInfo(cityEl) {
     var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
     fetch(apiurl)
     .then(function(response){
+        if (response.status === 404) {
+            document.location.replace(redirectUrl);
+        } else {
         return response.json();
+        }
     })
     .then(function (data){
         console.log(data);
@@ -120,7 +133,11 @@ var uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?appid=363823c2e92d
 
 fetch(uvIndexUrl)
 .then(function(response){
+    if (response.status === 404) {
+        document.location.replace(redirectUrl);
+    } else {
     return response.json();
+}
 })
 .then(function(info){
     console.log(info);
