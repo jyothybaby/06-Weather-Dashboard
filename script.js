@@ -132,10 +132,10 @@ function getWeatherInfo(cityEl) {
        temperatureEl.textContent = "Temperature : " + temp2 + " " + "F";
         windEl.textContent = "Wind: "+ data.wind.speed + " " + "MPH";
         humidityEl.textContent = "Humidity: "+ data.main.humidity + " " + "%";
-            //icon work is pending
+           
         var iconCode = data.weather[0].icon;
         var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-        mainCard.append($("<img>").attr("src", iconUrl));
+        $("#weatherImg").attr("src", iconUrl);
 
 
         var latt = data.coord.lat;
