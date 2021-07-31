@@ -9,7 +9,7 @@ var fiveDayDateEl = document.querySelector("#fiveDayDate");
 var fiveDayWindEl = document.querySelector("#fiveDayWind");
 var fiveDayTempEl = document.querySelector("#fiveDayTemp");
 var fiveDayHumidityEl = document.querySelector("#fiveDayHumidity");
-var forcastContainerEl= document.querySelector("#fiveDayForcast");
+var forcastContainerEl= document.querySelector("#dayForcast");
 let icon = document.querySelector(".icon");
 
 
@@ -104,6 +104,7 @@ searchBtn.addEventListener("click", function (event) {
 var mainCard = $("#mainLocationInfo");
 
 function getWeatherInfo(cityEl) {
+   
     // used my key = 363823c2e92dad51019d30b82e6c13d8
     var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
     fetch(apiurl)
@@ -118,10 +119,6 @@ function getWeatherInfo(cityEl) {
         console.log(data);
 
         document.getElementById("mainLocationInfo").className = " mainLocation";  
-        var iconCode = data.weather[0].icon;
-        var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-        mainCard.append($("<img>").attr("src", iconUrl));
-
         var day = moment().format("M/D/YYYY"); 
         displayLocationEl.textContent = data.name + "- "+ day ;
             //icon is pendin   
@@ -135,6 +132,12 @@ function getWeatherInfo(cityEl) {
        temperatureEl.textContent = "Temperature : " + temp2 + " " + "F";
         windEl.textContent = "Wind: "+ data.wind.speed + " " + "MPH";
         humidityEl.textContent = "Humidity: "+ data.main.humidity + " " + "%";
+            //icon work is pending
+        var iconCode = data.weather[0].icon;
+        var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        mainCard.append($("<img>").attr("src", iconUrl));
+
+
         var latt = data.coord.lat;
         console.log(latt)
         var lonn = data.coord.lon;
@@ -169,8 +172,9 @@ fetch(uvIndexUrl)
     })
     
 }
-var forcastCard = $("#fiveDayForcast");
+
 function  displayFiveDayForcast(cityEl)  {
+    forcastContainerEl.innerHTML = "";
     // in Api added "forcast" instead of weather
       var apiurl = "https://api.openweathermap.org/data/2.5//forecast?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
     fetch(apiurl)
@@ -184,22 +188,30 @@ function  displayFiveDayForcast(cityEl)  {
         .then(function (data){
            console.log(data);
             for(var i=0; i < 5; i++) {
-                var date = document.createElement("div");
+                var daydiv = document.createElement("div");
+
+                var date = document.createElement("p");
                 date.textContent = moment().add(1+i,"days").format("M/D/YYYY"); 
-                forcastContainerEl.appendChild(date);
-                var tempEl = document.createElement("div");
-                tempEl.textContent = "Temperature :" + Math.round((((data.list[i].main.temp)-273.15)*1.8)+32)+ " "+ "F";
-                forcastContainerEl.appendChild(tempEl);
-                var windEl = document.createElement("div");
-                windEl.textContent = "Wind: " + data.list[i].wind.speed + " " + "MPH";
-                forcastContainerEl.appendChild(windEl);
-                var humidityEl = document.createElement("div");
-                humidityEl.textContent = "Humidity: "+ data.list[i].main.humidity + " " + "%";
-                forcastContainerEl.appendChild(humidityEl)
-                var iconCode = data. list[i].weather[0].icon;
-                var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-                forcastCard.append($("<img>").attr("src", iconUrl));
+                daydiv.appendChild(date);
                 
+                var tempEl = document.createElement("p");
+                tempEl.textContent = "Temperature :" + Math.round((((data.list[i].main.temp)-273.15)*1.8)+32)+ " "+ "F";
+                daydiv.appendChild(tempEl);
+                
+                var windEl = document.createElement("p");
+                windEl.textContent = "Wind: " + data.list[i].wind.speed + " " + "MPH";
+                daydiv.appendChild(windEl);
+                
+                var humidityEl = document.createElement("p");
+                humidityEl.textContent = "Humidity: "+ data.list[i].main.humidity + " " + "%";
+                daydiv.appendChild(humidityEl);
+                
+                var img = document.createElement("img");
+                var iconCode = data. list[i].weather[0].icon;
+                 img.src = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                 daydiv.appendChild(img);
+
+                forcastContainerEl.appendChild(daydiv);
                }
         });
 }
