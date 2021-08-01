@@ -15,8 +15,9 @@ let icon = document.querySelector(".icon");
 
 
 
-var APIKey = "363823c2e92dad51019d30b82e6c13d8";
+var APIKey = "363823c2e92dad51019d30b82e6c13d8"; // this is my key for openweathermap.
 var citiesArray = [];
+//This is for getting the items from the localstorage when the program loads.
 function initializeCities() {
     var citiesLocal = JSON.parse(localStorage.getItem("citiesLocal"));
     if (citiesLocal !== null) {
@@ -42,7 +43,7 @@ function viewCities() {
    
 }
 
-
+//Adding city buttons to the page.
 var cityButtonList = document.getElementById("city-buttons");
 
 function displayCities() {
@@ -54,7 +55,7 @@ function displayCities() {
         //cityButton.id
         cityButton.textContent = city;
         cityButtonList.appendChild(cityButton);
-        cityButton.onclick = cityButtonClickHandler;
+        cityButton.onclick = cityButtonClickHandler; // calling a function here after a button click
     }
 }
 
@@ -64,7 +65,7 @@ function displayCities() {
 
 
 var formMsg = document.querySelector("#formMsg");
-
+// creating a function for Form messages
 function displayMessage(type, message) {
     formMsg.textContent = message;
     formMsg.setAttribute("class", type);
@@ -101,27 +102,27 @@ searchBtn.addEventListener("click", function (event) {
     }
 
 })
-var mainCard = $("#mainLocationInfo");
 
+//function for getting the weather info . Here, we are passing the city.
 function getWeatherInfo(cityEl) {
    
     // used my key = 363823c2e92dad51019d30b82e6c13d8
-    var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
+    var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8"; // adding city 
     fetch(apiurl)
     .then(function(response){
         if (response.status === 404) {
-            document.location.replace(redirectUrl);
+            document.location.replace(redirectUrl);  // tried to implement 404 server error message page.
         } else {
         return response.json();
         }
     })
     .then(function (data){
         console.log(data);
-
+//displaying the content from json file
         document.getElementById("mainLocationInfo").className = " mainLocation";  
-        var day = moment().format("M/D/YYYY"); 
+        var day = moment().format("M/D/YYYY");  //Used Moment.js for dispalying the date
         displayLocationEl.textContent = data.name + "- "+ day ;
-            //icon is pendin   
+            
      var temp= data.main.temp;
         console.log(temp);
         //temperature conversion from K to F
@@ -130,14 +131,16 @@ function getWeatherInfo(cityEl) {
        var temp2 = Math.round(temp1);
        console.log(temp2)
        temperatureEl.textContent = "Temperature : " + temp2 + " " + "F";
+       //This is the section for Wind
         windEl.textContent = "Wind: "+ data.wind.speed + " " + "MPH";
+        //This is the section for Humidity.
         humidityEl.textContent = "Humidity: "+ data.main.humidity + " " + "%";
-           
+        //This is the section for icon  
         var iconCode = data.weather[0].icon;
         var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
         $("#weatherImg").attr("src", iconUrl);
 
-
+//Getting lattitude and longitude from json to obtain the UV Index.
         var latt = data.coord.lat;
         console.log(latt)
         var lonn = data.coord.lon;
@@ -172,7 +175,7 @@ fetch(uvIndexUrl)
     })
     
 }
-
+ //This is the function for dispalying 5 day forcast.
 function  displayFiveDayForcast(cityEl)  {
     forcastContainerEl.innerHTML = "";
     // in Api added "forcast" instead of weather
@@ -188,10 +191,11 @@ function  displayFiveDayForcast(cityEl)  {
         .then(function (data){
            console.log(data);
             for(var i=0; i < 5; i++) {
+                // Created the elements dynamically
                 var daydiv = document.createElement("div");
 
                 var date = document.createElement("p");
-                date.textContent = moment().add(1+i,"days").format("M/D/YYYY"); 
+                date.textContent = moment().add(1+i,"days").format("M/D/YYYY"); //used Moment.js for dispalying the date
                 daydiv.appendChild(date);
                 
                 var tempEl = document.createElement("p");
@@ -215,6 +219,7 @@ function  displayFiveDayForcast(cityEl)  {
                }
         });
 }
+
 var removeCities = document.getElementById("clear-city");
 removeCities.addEventListener("click", clearCities)
 
@@ -225,4 +230,4 @@ initializeCities()
 //key: 363823c2e92dad51019d30b82e6c13d8
 
 //api.openweathermap.org/data/2.5/weather?q={city name}&appid=APIKey;
-//moment().add(7, 'days'); 
+
