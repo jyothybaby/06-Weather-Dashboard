@@ -6,12 +6,14 @@ For implementing this Appication, i have used, html, css and javascrpit. For Api
 In Html,
 1. Made the skelton of the project
 2. Some Elements are created dynamically using javascript.
+
 In CSS,
 1. Made styles as per the requirements
 2. For UI Index.
     Low UI Index : Green
     Moderate UI Index: Yellow
     High UI Index : Red
+    
 In script.js,
 1. As per the requiremet used OpenWeather One Call API for getting the weather information.
 2. Used Moment.js for displaying the date.
