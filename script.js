@@ -9,7 +9,7 @@ var fiveDayDateEl = document.querySelector("#fiveDayDate");
 var fiveDayWindEl = document.querySelector("#fiveDayWind");
 var fiveDayTempEl = document.querySelector("#fiveDayTemp");
 var fiveDayHumidityEl = document.querySelector("#fiveDayHumidity");
-var forcastContainerEl= document.querySelector("#dayForcast");
+var forcastContainerEl = document.querySelector("#dayForcast");
 let icon = document.querySelector(".icon");
 
 
@@ -40,7 +40,7 @@ function viewCities() {
         console.log("citiesArray", citiesArray)
         displayCities();
     }
-   
+
 }
 
 //Adding city buttons to the page.
@@ -48,7 +48,7 @@ var cityButtonList = document.getElementById("city-buttons");
 
 function displayCities() {
     cityButtonList.innerHTML = "";
-       for (var i = 0; i < citiesArray.length; i++) {
+    for (var i = 0; i < citiesArray.length; i++) {
         var city = citiesArray[i];
         var cityButton = document.createElement("button");
         cityButton.className = "city-id";
@@ -72,7 +72,7 @@ function displayMessage(type, message) {
 }
 
 function cityButtonClickHandler(event) {
-    var cityEl= event.target.innerHTML;
+    var cityEl = event.target.innerHTML;
     console.log(cityEl);
     getWeatherInfo(cityEl);
     displayFiveDayForcast(cityEl);
@@ -86,8 +86,8 @@ searchBtn.addEventListener("click", function (event) {
         displayMessage("error", "Please enter a City !!");
         return;
     } else {
-        for(var i=0;i< citiesArray.length;i++){
-            if(citiesArray[i]===cityEl) {
+        for (var i = 0; i < citiesArray.length; i++) {
+            if (citiesArray[i] === cityEl) {
                 displayMessage("error", "The City is already in the List!!!");
                 return;
             } else {
@@ -105,118 +105,118 @@ searchBtn.addEventListener("click", function (event) {
 
 //function for getting the weather info . Here, we are passing the city.
 function getWeatherInfo(cityEl) {
-   
+
     // used my key = 363823c2e92dad51019d30b82e6c13d8
-    var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8"; // adding city 
+    var apiurl = "https://api.openweathermap.org/data/2.5/weather?q= " + cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8"; // adding city 
     fetch(apiurl)
-    .then(function(response){
-        if (response.status === 404) {
-            document.location.replace(redirectUrl);  // tried to implement 404 server error message page.
-        } else {
-        return response.json();
-        }
-    })
-    .then(function (data){
-        console.log(data);
-//displaying the content from json file
-        document.getElementById("mainLocationInfo").className = " mainLocation";  
-        var day = moment().format("M/D/YYYY");  //Used Moment.js for dispalying the date
-        displayLocationEl.textContent = data.name + "- "+ day ;
-            
-     var temp= data.main.temp;
-        console.log(temp);
-        //temperature conversion from K to F
-        var temp1= ((temp-273.15)*1.8)+32;
-        console.log(temp1)
-       var temp2 = Math.round(temp1);
-       console.log(temp2)
-       temperatureEl.textContent = "Temperature : " + temp2 + " " + "F";
-       //This is the section for Wind
-        windEl.textContent = "Wind: "+ data.wind.speed + " " + "MPH";
-        //This is the section for Humidity.
-        humidityEl.textContent = "Humidity: "+ data.main.humidity + " " + "%";
-        //This is the section for icon  
-        var iconCode = data.weather[0].icon;
-        var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-        $("#weatherImg").attr("src", iconUrl);
+        .then(function (response) {
+            if (response.status === 404) {
+                document.location.replace(redirectUrl);  // tried to implement 404 server error message page.
+            } else {
+                return response.json();
+            }
+        })
+        .then(function (data) {
+            console.log(data);
+            //displaying the content from json file
+            document.getElementById("mainLocationInfo").className = " mainLocation";
+            var day = moment().format("M/D/YYYY");  //Used Moment.js for dispalying the date
+            displayLocationEl.textContent = data.name + "- " + day;
 
-//Getting lattitude and longitude from json to obtain the UV Index.
-        var latt = data.coord.lat;
-        console.log(latt)
-        var lonn = data.coord.lon;
-        console.log(lonn)
+            var temp = data.main.temp;
+            console.log(temp);
+            //temperature conversion from K to F
+            var temp1 = ((temp - 273.15) * 1.8) + 32;
+            console.log(temp1)
+            var temp2 = Math.round(temp1);
+            console.log(temp2)
+            temperatureEl.textContent = "Temperature : " + temp2 + " " + "F";
+            //This is the section for Wind
+            windEl.textContent = "Wind: " + data.wind.speed + " " + "MPH";
+            //This is the section for Humidity.
+            humidityEl.textContent = "Humidity: " + data.main.humidity + " " + "%";
+            //This is the section for icon  
+            var iconCode = data.weather[0].icon;
+            var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            $("#weatherImg").attr("src", iconUrl);
 
-var uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?appid=363823c2e92dad51019d30b82e6c13d8&lat=" +latt + "&lon="+lonn;
+            //Getting lattitude and longitude from json to obtain the UV Index.
+            var latt = data.coord.lat;
+            console.log(latt)
+            var lonn = data.coord.lon;
+            console.log(lonn)
 
-fetch(uvIndexUrl)
-.then(function(response){
-    if (response.status === 404) {
-        document.location.replace(redirectUrl);
-    } else {
-    return response.json();
+            var uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?appid=363823c2e92dad51019d30b82e6c13d8&lat=" + latt + "&lon=" + lonn;
+
+            fetch(uvIndexUrl)
+                .then(function (response) {
+                    if (response.status === 404) {
+                        document.location.replace(redirectUrl);
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(function (info) {
+                    console.log(info);
+                    UVIndexEl.textContent = "UVIndex: " + info.value;
+                    if ((info.value) <= 2) {
+                        //low
+                        document.getElementById("UVIndex").className = " lowUVIndex";
+                    } else if ((info.value > 2) && (info.value <= 7)) {
+                        // moderate
+                        document.getElementById("UVIndex").className = " moderateUVIndex";
+                    } else {
+                        //danger
+                        document.getElementById("UVIndex").className = " dangerUVIndex";
+                    }
+
+                })
+
+        })
+
 }
-})
-.then(function(info){
-    console.log(info);
-    UVIndexEl .textContent = "UVIndex: "+ info.value;
-    if((info.value) <=2 ) {
-        //low
-        document.getElementById("UVIndex").className = " lowUVIndex";  
-    } else if ((info.value >2) && (info.value <=7) ){
-        // moderate
-        document.getElementById("UVIndex").className = " moderateUVIndex"; 
-    }else {
-        //danger
-        document.getElementById("UVIndex").className = " dangerUVIndex"; 
-    }
-
-})
-        
-    })
-    
-}
- //This is the function for dispalying 5 day forcast.
-function  displayFiveDayForcast(cityEl)  {
+//This is the function for dispalying 5 day forcast.
+function displayFiveDayForcast(cityEl) {
     forcastContainerEl.innerHTML = "";
     // in Api added "forcast" instead of weather
-      var apiurl = "https://api.openweathermap.org/data/2.5//forecast?q= "+ cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
+    var apiurl = "https://api.openweathermap.org/data/2.5//forecast?q= " + cityEl + "&appid=363823c2e92dad51019d30b82e6c13d8";
     fetch(apiurl)
-    .then(function(response){
-        if (response.status ===404){
-            document.location.replace(redirectUrl);
-        } else {
-            return response.json();
-        }
-    })
-        .then(function (data){
-           console.log(data);
-            for(var i=0; i < 5; i++) {
+        .then(function (response) {
+            if (response.status === 404) {
+                document.location.replace(redirectUrl);
+            } else {
+                return response.json();
+            }
+        })
+        .then(function (data) {
+            console.log(data);
+            for (var i = 0; i < 5; i++) {
                 // Created the elements dynamically
                 var daydiv = document.createElement("div");
 
                 var date = document.createElement("p");
-                date.textContent = moment().add(1+i,"days").format("M/D/YYYY"); //used Moment.js for dispalying the date
+                date.textContent = moment().add(1 + i, "days").format("M/D/YYYY"); //used Moment.js for dispalying the date
                 daydiv.appendChild(date);
-                
+
                 var tempEl = document.createElement("p");
-                tempEl.textContent = "Temperature :" + Math.round((((data.list[i].main.temp)-273.15)*1.8)+32)+ " "+ "F";
+                tempEl.textContent = "Temperature :" + Math.round((((data.list[i].main.temp) - 273.15) * 1.8) + 32) + " " + "F";
                 daydiv.appendChild(tempEl);
-                
+
                 var windEl = document.createElement("p");
                 windEl.textContent = "Wind: " + data.list[i].wind.speed + " " + "MPH";
                 daydiv.appendChild(windEl);
-                
+
                 var humidityEl = document.createElement("p");
-                humidityEl.textContent = "Humidity: "+ data.list[i].main.humidity + " " + "%";
+                humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + " " + "%";
                 daydiv.appendChild(humidityEl);
-                
+
                 var img = document.createElement("img");
-                var iconCode = data. list[i].weather[0].icon;
-                 img.src = "http://openweathermap.org/img/w/" + iconCode + ".png";
-                 daydiv.appendChild(img);
+                var iconCode = data.list[i].weather[0].icon;
+                img.src = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                daydiv.appendChild(img);
 
                 forcastContainerEl.appendChild(daydiv);
-               }
+            }
         });
 }
 

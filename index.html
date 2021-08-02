@@ -17,47 +17,47 @@
     <h1>Weather Dashboard</h1>
   </header>
   <Section>
-  <main class="flex-row justify-flex-start">
-    <div class="col-12 col-md-2">
-<!-- Section for search by sity -->
-      <div class="card">
-        <h3 class="card-header" >Search By City</h3>
-        <form id="city-form" class="card-body">
-          <label class="form-label" for="city">City</label>
-          <input name="city-name" id="city" type="text" autofocus="true" class="form-input" />
-          <button type="submit" class="btn">search</button>
-          <button type="submit" class="btn" id="clear-city">Remove Cities</button>
-        </form>
-        <div id="formMsg"></div>
-      </div>
-      <div class="card">
-        <div id="city-buttons" class="card-body">
-          <!-- Dynamically created buttons should go here -->
+    <main class="flex-row justify-flex-start">
+      <div class="col-12 col-md-2">
+        <!-- Section for search by sity -->
+        <div class="card">
+          <h3 class="card-header">Search By City</h3>
+          <form id="city-form" class="card-body">
+            <label class="form-label" for="city">City</label>
+            <input name="city-name" id="city" type="text" autofocus="true" class="form-input" />
+            <button type="submit" class="btn">search</button>
+            <button type="submit" class="btn" id="clear-city">Remove Cities</button>
+          </form>
+          <div id="formMsg"></div>
+        </div>
+        <div class="card">
+          <div id="city-buttons" class="card-body">
+            <!-- Dynamically created buttons should go here -->
 
+          </div>
         </div>
       </div>
-    </div>
 
-<!-- main card for displaying the temperature -->
-    <div class="col-12 col-md-10" id="mainLocationInfo">
-      <h2 class="display-location"><span id="LocationInfo"></span></h2>
-       <img src="" id="weatherImg" class="center-block">
-       <div id="temperature"></div><br>
-      <div id="wind"></div><br>
-      <div id="humidity"></div> <br>
-      <div id="UVIndex"></div> <br>
+      <!-- main card for displaying the temperature -->
+      <div class="col-12 col-md-10" id="mainLocationInfo">
+        <h2 class="display-location"><span id="LocationInfo"></span></h2>
+        <img src="" id="weatherImg" class="center-block">
+        <div id="temperature"></div><br>
+        <div id="wind"></div><br>
+        <div id="humidity"></div> <br>
+        <div id="UVIndex"></div> <br>
 
-    </div>
+      </div>
 
-  </main>
-</Section>
-<!-- Section for weather forcast -->
+    </main>
+  </Section>
+  <!-- Section for weather forcast -->
   <div id="fiveDayForcast">
-    <div id = "dayForcast">
+    <div id="dayForcast">
     </div>
   </div>
 
-  
+
   <script src="https://kit.fontawesome.com/3c309b0cab.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
