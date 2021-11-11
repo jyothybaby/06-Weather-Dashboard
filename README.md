@@ -27,4 +27,5 @@ In script.js,
 
 Screenshot:
 
+
 ![screen-1](https://github.com/jyothybaby/06-Weather-Dashboard/blob/main/Screenshots/screenshot.png)<br>
